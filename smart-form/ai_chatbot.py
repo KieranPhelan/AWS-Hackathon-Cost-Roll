@@ -3,34 +3,20 @@
 
 from dotenv import load_dotenv
 from openai import OpenAI
+from rag import get_rag_context
 
 
 SYSTEM_PROMPT = """
 
 """
 
-DOC_PATH = "/path/to/knowledge_base.docx"
+DOC_PATH = "docs/RAG-Doc-2.txt"
 
 
 def analyse_enquiry(client: OpenAI,
                     message: str,
-                    model: str = "gpt-5-nano"):
-    """."""
-    response = client.chat.completions.create(
-        model=model,
-        messages=[
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": message}
-        ]
-    )
-
-    return response.choices[0].message.content
-
-
-def analyse_enquiry(client: OpenAI,
-                    message: str,
-                    model: str = "gpt-5-nano",
-                    use_rag: bool = True) -> AssistantAnalysis:
+                    model: str = "gpt-4o-mini",
+                    use_rag: bool = True):
     """Analyse a customer enquiry and return structured output."""
 
     rag_context = ""
@@ -40,14 +26,15 @@ def analyse_enquiry(client: OpenAI,
     else:
         prompt = SYSTEM_PROMPT
 
-    response = client.responses.parse(
+    response = client.chat.completions.create(
         model=model,
-        instructions=prompt,
-        input=[{"role": "user", "content": message}],
-        text_format=AssistantAnalysis,
+        messages=[
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": message}
+        ]
     )
 
-    return response.output_parsed
+    return response.choices[0].message.content
 
 
 if __name__ == "__main__":
@@ -56,6 +43,7 @@ if __name__ == "__main__":
 
     client = OpenAI()
 
-    response = analyse_enquiry(client, "How do I access my account?")
+    response = analyse_enquiry(
+        client, "What is the difference between procurement type E and F?")
 
     print(response)
