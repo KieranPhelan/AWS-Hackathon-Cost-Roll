@@ -1,0 +1,449 @@
+Annual Global Cost Roll process review
+Author: - Chris Arundale, Global Finance (Operations)
+Date: - 12th Feb 2026 					File: - Annual cost roll process 12_2_26.docx
+Purpose: - to review the annual global cost roll process & identify where improved automation can be introduced to reduce the overall processing time, data collection sets & the possibility of human error.
+Initial steps: - To determine how automation can proceed, the current process with key steps are shown below.
+1)	Weekly data reviews
+a.	Identify cost roll errors in the manufacturing & service plants (this is an automated process which runs every Tuesday night for the Wednesday review)
+b.	Identify active materials in the manufacturing & service plants where standards have not been posted in the current fiscal year (FY).
+2)	Cost roll errors & costs for active materials MUST be resolved before 1st August of every FY. This ensures clean data whilst Legal & Group valuations are posted in August.
+3)	Issue Change freeze document to prevent data creation or change to master data which will impact the cost roll process
+4)	Review SPK routes to ensure that all pathways are logical & open. 
+5)	Load new STO uplift values to support stock movements (VK12, MEK2 condition records)
+6)	Set new currency conversion rates for the new FY (Planning rate required for global cost roll)
+7)	Extract global cost data for all Proc type F materials which includes PIR inc’g scales, current standard or LIP (last invoice price). This is a lengthy process requiring 2 weeks to extract (all materials) & prepare the data as follows: -
+a.	6 SQVI extracts with data from MARA, MARC & MAKT			
+i.	1 extract from MAKT for material description
+ii.	1 extract from MARA for X plant blocks
+iii.	MARC for plant specific data inc’g current std, PP2 & 3, procurement type & plant blocks
+1.	1 extract for DE
+2.	1 extract for FR, GB & MY
+3.	1 extract for US45, US65 & US95
+4.	1 extract for Service hubs etc
+b.	SQVI extract LIP data: -
+i.	One per manufacturing plant except where GB30 & GB45 which can be combined into one extract (due to small volume)
+ii.	Sales & Service in 1 extract
+c.	SQVI vendor info to translate from Vendor # to Vendor name
+d.	SQVI PIR data is extracted in 2 different sets due to FR & US not being correctly maintained!
+i.	PIR1 by every plant inc’g FR & US
+ii.	PIR2 for FR & US
+e.	Scaling info is required from the PIR’s & this is obtained from an Every Angle report created by Sourcing & includes global consumption although not required for ‘cost roll’.
+f.	Data from a through to e is imported into Power BI & subsequently exported into Excel by plant where Excel contains logic to recommend recommendations for MM planned price 2 & 3 
+g.	The above is generally started at the beginning of July & after approx. 2 weeks is sent to stage 8) immediately below.
+8)	Send F type analysis to Plant Financial Controllers & Sourcing Teams for review & new recommendations / agreement.
+9)	Review replies from 8) & create upload files by plant defining new MM PP2 & 3. Send files to MDM
+10)	MDM use Evolve to upload new values for PP2 & 3 along with the applicability date (for global cost roll this is 31/07/xx & is subsequently amended to 01/08/xx via MM17)
+a.	Just a side note – once we move into August the weekly costing runs become defunct due to date restrictions)
+11)	Set up multiple costing runs in each of the 23 plants to cover the posting of Legal & Group valuations (Currently 142 costing runs). Just as a side note, the costing runs have master data logic built into them to define what materials to process.
+12)	Extract routing data from SAP for each manufacturing plant & present to the business to embody productivity improvements
+13)	Upload routing changes – the master data teams process into SAP for each manufacturing plant
+14)	From the 2nd week in August the costing runs are processed for all materials except NV’s & RW’s
+a.	Where materials are exchanged between manufacturing plants an iterative process is required to ensure final costs are captured. Eg IS600 swabs are supplied by MY & go into IS600 FG build by Hemel. The resetting of intercompany costs through this iterative process is forwarded to MDM to upload via Evolve
+15)	The process of calculating costs for NV (defective materials) is based on 3% of the new material in the source plant. RW (repaired parts) materials can either be reworked in-house or at an external vendor. Many of the processes mentioned above are further invoked to complete the posting of legal & group valuation for these materials
+16)	Prior to any costs being posted data is extracted from the costing runs & an impact analysis conducted on stock valuation. If change is significant, then authorisation is sort from a Financial director to explain & post the costs if acceptable. If not acceptable then further cost analysis is conducted.
+17)	All analysis files are extracted via Excel & retained as an auditable reference.
+18)	Some plants sit outside of SAP & the cost changes are communicated to the relevant controllers
+19)	Changes in spares & saleable materials are notified to the Sales teams to potentially update condition record ZPRI to reflect revised selling prices
+20)	September is often devoted to receiving & replying to queries from many plants to substantiate the cost changes & potential impact on revenue.
+21)	Once the August cost roll is complete, set up new costing runs to monitor & correct errors throughout the year. 
+
+Tools currently used during the process
+a)	Power BI
+b)	Excel
+c)	Evolve
+d)	SAP
+Next steps: -
+i)	Provide more detail around each of the above key steps
+ii)	Possibly show the potential material movements ie route to market – could use my Morpho material movements documented around 2019
+iii)	Take a sample FG (eg IS600) & along with individual data extracts map the cost movements & confirmations. 
+iv)	Identify all error types from the weekly costing runs & define solutions for each
+v)	Should we challenge the SPK routes by analysing the actual routes used during the FY to confirm if they are logical & adjust as appropriate
+vi)	Its also frustrating that Service Supply chain periodically ask for the routes to be changed during the FY – this is frustrating & time consuming – best to complete before the August cost roll
+vii)	How to accommodate new plants eg IE30 & IE45
+viii)	Also, one massive problem is non-MDM individuals with access to change the master data eg removing material blocks without understanding the full implications. This has been an age-old problem & has never satisfactorily been resolved!
+
+ 	SITE 
+Standard Operating Procedure	Material Master Data	Revision
+001
+SOP Owner:  Global Data Governance 
+Data Owner: Operations Accounting
+	Effective Date: 	Page 1  of    10     
+TITLE: Planned Price 2 & 3
+
+DOCUMENTATION VERIFICATION
+Prior to using this document, the user is responsible for verifying that the revision and effective date are current.
+
+APPROVALS
+All approvers listed shall approve the steps below:
+DEPARTMENT	APPROVER FOR STEPS
+Finance Operations	Creation and Amendment
+Data Governance	Creation and Amendment
+
+
+REVISION HISTORY
+Periodic Review Schedule: 1 year from Effective date
+No previous revision document currently available.
+REVISION NUMBER	EFFECTIVE DATE	CHANGES MADE TO DOCUMENT
+001 		None
+
+
+
+
+CONTENTS
+1.0	 	 PURPOSE ……………………….............................................................................. Page 3
+2.0	 	 SCOPE ………………………………………………………………………………………………………… Page 3
+3.0	 	DEFINITIONS ……………………………………………………………………………………………….. Page 3
+4.0		RULES AND IMPACT FOR THE BUSINESS ………………………………………………………. Page 4
+5.0	 	RESPONSIBILITIES – Data Owners ……………………………………………………………..… Page 5
+6.0		DATA GOVERNANCE PROCESS …………………………………………………………………….. Page 5
+ 
+1.0	PURPOSE
+To ensure that there is a consistent global approach to create/ change and govern the Material Master Data in SAP.
+
+2.0	SCOPE
+
+This document applies to all Departments and teams who are responsible for the management and governance of the completeness and accuracy of this Data.
+
+3.0	DEFINITION
+Maintaining planned price 2 & 3 values is a method to allow a cost roll of a material in order to set a standard cost of a material
+Planned Price 2 and 3 is situated in material master data and can be found using transaction code MM03 for viewing purposes.  Maintenance is via MM02 and to create this data is via MM01.  The tab in material master where these data fields sit are in the Costing 2 tab:
+ 
+
+Planned Price 2 & 3 are in the ‘planned prices’ section of the Costing 2 tab.  When a planned price 2 and 3 value is entered, we always populate a “valid from” date in to the fields ‘planned price date 2 & 3’
+ 
+
+Planned price 2 with associated date 
+This is the Legal price & includes uplift for STO materials  when set in the receiving site – this value is used in the cost roll process & should include a validity date (local currency at Bud XR)
+
+Planned price 3 with associated date
+This is the Group price & will not include any uplift – this value is used in the cost roll process & should include a validity date (local currency at Bud XR)
+
+
+The current standard cost of a material is shown in the ‘standard cost estimate’ section of the Costing 2 tab.  If a value is not shown in the ‘planned price’ highlighted in yellow here, then the material has not formally been cost rolled:
+ 
+
+There should be no uplift for a material in the same entity - e.g. DE30 & DE45
+
+
+4.0	RULES AND IMPACT FOR THE BUSINESS
+
+Planned Price 2
+Planned Price 2 should be populated for all materials which are externally procured (procurement type F) & includes materials obtained from other SD sites. 
+PP2 should not be populated for materials which are procurement type F & sub contract (special procurement code 30). In this instance a sub-contracting Purchase Info record should be generated by the local procurement team
+When populated, PP2 should also include the ‘Planned price date 2’ which will be the date the value is added or amended
+PP2 will be populated to allow the cost roll activity to post values to the Legal Price or Company Code Currency in Accounting 1
+PP2 is in local currency
+Where PP2 is maintained for materials procured from other SD sites it will include some mark-up. This value should be obtained from the local finance representative.
+PP2 will be used in the cost roll process
+PP2 should be maintained annually in preparation for the end of year cost roll.
+If a material is procured from an external vendor then PP2 will equal PP3
+Planned Price 2 can only be applied to material types which have the Costing 2 tab eg FERT, HALB, ROH, HAWA, HIBE, KMAT, PROD, VERP & FHMI
+
+
+Planned Price 3
+Planned Price 3 should be populated for all materials which are externally procured (procurement type F) & includes materials obtained from other SD sites.
+PP3 should not be populated for materials which are procurement type F & sub contract (special procurement code 30). In this instance a sub-contracting Purchase Info record should be generated by the local procurement team
+When populated, PP3 should also include the ‘Planned price date 3’ which will be the date the value is added or amended
+PP3 will be populated to allow the cost roll activity to post values to the Group Price or Group Valuation in Accounting 1
+PP3 is also referred to as the Group Price 
+PP3 is in local currency
+Where PP3 is maintained for materials procured from other SD sites the value should be derived from the source site & converted into the local currency.
+PP3 will be used in the cost roll process
+PP3 should be maintained annually in preparation for the end of year cost roll.
+If a material is procured from an external vendor then PP2 will equal PP3
+Planned Price 3 can only be applied to material types which have the Costing 2 tab eg FERT, HALB, ROH, HAWA, HIBE, KMAT, PROD, VERP & FHMI
+
+
+5.0		RESPONSIBILITIES
+Finance teams from each manufacturing site are responsible for their PP2 and PP3 data and the cost roll.  
+When a material is extended to a plant, it is the responsibility of Global Data Governance to calculate the PP2 and PP3 based on the information available in the supplying plant and cost roll accordingly
+
+ 6.0    DATA GOVERNANCE PROCESS
+PP2
+Intercompany – 
+1.	Extract Standard Price from Intercompany Plant
+2.	Convert extracted intercompany plant price to the local currency of the plant being extended to using the latest conversion rates within SAP table ‘TCURR’. 
+3.	Use Exchange Rate ‘P’, enter the ‘From currency’ and ‘To-currency’ and Execute. See below:
+ 
+4.	Use the most recent conversion form results:
+ 
+5.	Multiply the extracted price by exchange rate shown in step 4.
+6.	Dependant on Material Type being extended, the Intercompany plant the material is coming from and the Sales org who is entering the order. Condition Record YI01 has been maintained in transaction VB13 to reflect the mark up percentages. See table below:
+ 
+Enter
+ 
+Select 3rd option
+ 
+Leave blank & Execute with today’s date
+ 
+7.	Multiply value in step 5 by the percentage in screenshot above. This will differ dependant on the combination.
+External – 
+1.	Take the price quoted on the Vendor’s invoice 
+2.	Convert using ‘TCURR’ table
+3.	Use Exchange Rate ‘P’, enter the ‘From currency’ and ‘To-currency’ and Execute. See below:
+ 
+4.	Use the most recent conversion form results:
+ 
+5.	Multiply the quoted price by exchange rate shown in step 4 to calculate PP3.
+
+
+
+
+
+
+
+
+PP3
+Intercompany – 
+1.	Extract Standard Price from Intercompany Plant
+2.	Convert extracted intercompany plant price to the local currency of the plant being extended to using the latest conversion rates within SAP table ‘TCURR’. 
+3.	Use Exchange Rate ‘P’, enter the ‘From currency’ and ‘To-currency’ and Execute. See below:
+ 
+4.	Use the most recent conversion form results:
+ 
+5.	Multiply the extracted price by exchange rate shown in step 4 to calculate PP3.
+
+
+
+
+
+External – 
+1.	Take the price quoted on the Vendor’s invoice 
+2.	Convert using ‘TCURR’ table
+3.	Use Exchange Rate ‘P’, enter the ‘From currency’ and ‘To-currency’ and Execute. See below:
+ 
+4.	Use the most recent conversion form results:
+ 
+5.	Multiply the quoted price by exchange rate shown in step 4 to calculate PP3.
+
+ 	SITE 
+Standard Operating Procedure	Material Master Data	Revision
+001
+SOP Owner: Data Governance team 
+Data Owner: Operations Finance	Effective Date: 	Page   1 of   25 
+TITLE: Cost –Roll process
+
+DOCUMENTATION VERIFICATION
+Prior to using this document, the user is responsible for verifying that the revision and effective date are current.
+
+APPROVALS
+All approvers listed shall approve the steps below:
+DEPARTMENT	APPROVER FOR STEPS
+GDG	Creation / Amendment
+Finance Operations	Creation / Amendment
+
+
+REVISION HISTORY
+Periodic Review Schedule: 1 year from Effective date
+No previous revision document currently available.
+REVISION NUMBER	EFFECTIVE DATE	CHANGES MADE TO DOCUMENT
+001		N/A
+
+
+
+
+CONTENTS
+1.0	 	 PURPOSE ……………………….............................................................................. Page 3
+2.0	 	 SCOPE ………………………………………………………………………………………………………… Page 3
+3.0	 	DEFINITION .……………………………………………………………………………………………….. Page 3
+4.0	  	RULES AND IMPACT FOR THE BUSINESS ………………………………………………………. Page 4
+5.0	       RESPONSIBILITIES – Data Owners ……………………………………………………………..… Page 25
+6.0	 	DATA GOVERNANCE PROCESS …………………………………………………………………….. Page 25
+ 
+1.0	PURPOSE
+To ensure that there is a consistent global approach to create/ change and govern the Material Master Data in SAP.
+
+2.0	SCOPE
+
+This document applies to all Departments and teams who are responsible for the management and governance of the completeness and accuracy of this Data.
+
+3.0	DEFINITION
+The cost-roll process is applied in order to set the standard cost/ price of a material or group of materials.
+ 
+SAP transaction (T) codes:-						
+a)	‘CK11N’ to ‘create a material cost estimate’
+b)	‘CK24’ to ‘mark a standard price’ 
+c)	‘CK24’ to ‘release a standard price’ (same T code as ‘b’)
+d)	‘MM03’ to view Material Master data
+e)	‘ZSCM_BOMECM’ to extract a multi-level BoM (initial user access may be a problem!)
+Note:- the following process can be used to cost roll an  individual or group of materials & assumes that all of the costing data has been correctly applied in either Material Master, Purchase Info Records (PIR) or that an existing reliable standard has previously be posted. Error resolution is partially covered on the last page.
+As a general note, SAP adopts the following hierarchy when attempting to determine costs – if no costs can be determined, then a red error will be identified using a formal traffic light system.
+1.	Material Master, Costing 2 tab, Planned Price 2 (legal) & Planned Price 3 (group) with associated ‘valid from dates’.
+2.	PIR
+3.	Existing Standard – seen in Material Master, costing 2 tab.
+
+4.0	RULES AND IMPACT FOR THE BUSINESS
+Process to cost roll a single material
+Select SAP ‘T’ code CK11N (either by typing in the dialogue box or from user defined ‘favourites’) & double click LH mouse or press ‘enter’. 
+ f
+
+The following screen results – note, some fields may already be populated by SAP depending on the ‘users’ last transaction or material searches.
+ 
+Add the relevant material number & plant in which the cost roll is to be conducted – in this instance the material is 0614-0923-2 & the plant GB45.
+The costing activity requires that values be posted for both ‘Group’ & ‘Legal’ valuation. This necessitates that the correct ‘Costing Variant’ be selected - the acceptable values shown below are prefixed ‘Z’. Note that the manufacturing / service entities have specific values & for non- manufacturing sites ‘ZGRP’ & ‘ZLEG’ are available.
+ 
+
+
+For the given material, ZGB1 will be selected to conduct a legal cost estimate in GB45
+The costing version can remain as ‘1’ & the costing lot size as ‘blank’ which subsequently defaults to 1 (although the field remains blank). If a lot size greater than 1 is required then apply the relevant value.
+Once the data has been populated, note that the transfer control box may be populated with the value ‘PC02’. This will instruct SAP to only cost roll this material. If you are attempting to cost roll a material & its underlying BoM (Bill of Material) then delete ‘PC02’. 
+The example below is set to cost roll a single externally procured material.
+ 
+Click the ‘green’ tick icon   (or hit enter) & the following screen will be revealed.
+  
+The ‘dates’ should now be considered: in the example the dates are suggesting that the cost roll will be posted in the next period. If you require the cost roll in the current period then amend ‘Costing date from’, ‘Qty structure date’ & ‘Valuation date’ to the current date (in this instance 2nd March 2016 (GB format)) as seen in the following screen shot.
+ 
+Again clicking the ‘green’ tick icon or pressing enter will move to the next screen which identifies the proposed costing output. Note:- if a cost has already be posted in the proposed period then SAP will indicate an error ‘…. Material already has a released cost estimate’. There are some useful icons which can be selected on the screen below – they will be reviewed later in this guide where the costing of multi-level BoM’s is covered.
+ 
+The key piece of information identified above is that the ‘green’ traffic light can be seen against the material. Note: if the system believes errors are present then either an amber (advisory) or red (error) traffic light will be seen & should be reviewed / corrected as appropriate. It should NOT be assumed that a green traffic light means the value is correct – it means that SAP has found a value! 
+Once the value is confirmed, click the diskette icon   to save the legal cost estimate.
+
+An ‘update parameters’ window will subsequently be seen within the main window as below.
+  
+Select the ‘green’ tick to accept & the screen below will be shown.
+ 
+The message ‘The cost estimate is being saved’ will be seen in the bottom LH corner of the screen.
+
+
+
+The process should then be repeated to complete the ‘Group’ valuation – for the example material in GB45, the costing variant then becomes ‘ZGBG’ as seen below.
+ 
+The activity using T code CK11N is now complete & can be exited using a combination of the   icons.
+The next steps are to ‘Mark’ & ‘Release’ the cost estimate using ‘T’ code CK24. The following initial screen is typical.
+
+Over-write the ‘posting period / Fiscal year’ with the correct values.  
+The subsequent step is to confirm whether the current period is ‘open’ by clicking on the   box. As can be seen below, the red traffic lights signify that neither the Legal & Group periods are open for GB00 or indeed any other company code.
+ 
+To open the period the following steps need to be completed for both ‘Group’ & ‘Legal’ – the sequence is unimportant. Click on the relevant entity to reveal the screen below – in this case GB00, Legal Valuation.
+ 
+Select costing variant ZGB1 as below
+ 
+ 
+& Save  
+Repeat the process for the ‘Group’ valuation. The result should be ‘green’ traffic lights as below.
+ 
+It is not necessary to press the Save Icon   but doesn’t hinder the activity if undertaken. 
+Return to the main CK24 ‘Price Update’ screen by using the back arrow icon    . 
+Populate the ‘Plant’ & material number as seen below. 
+ 
+Note: to simultaneously complete both the ‘Group’ & ‘Legal’ valuations leave the boxes ‘checked’. It is also best to initially conduct the ‘Marking’ activity with a ‘test run’ to ensure the results are correct. Once the plant & material number have been entered, execute the activity using the   icon
+
+
+A typical post execution view is seen below.
+ 
+Click the back arrow    to obtain a more comprehensive set of results as below.
+ 
+The slider bar may be moved to the right to show additional information.
+ 
+
+
+
+
+
+
+
+
+Back out using the green arrow icon     & assuming the results are as expected, un-tick the ‘test run’ option – see below.
+ 
+Repeat the ‘execute’ process & the following screen is seen.
+  
+
+
+
+The ‘Legal’ & ‘Group’ future costs will now be posted & visible in Material Master (T code MM03), Costing 2 tab (again it is not necessary to click the Save icon   ) – see screen shot below showing future cost estimate in MM  with period / fiscal year.
+ 
+Return to & back out of the CK24 ‘Price update’ screen using the green back arrow.    The last step is to release the new Group & Legal standards.
+Return to the CK24 screen & select ‘Release’ leaving the other settings (i.e. no test run required)
+ 
+The following screen is seen - click the execute Icon  
+ 
+If the activity is successful, the following screen will be displayed – note the message ‘Of 1 materials , 1 cost estimates were updated successfully’.
+ 
+Back out using the green back arrow icon   to reveal the detailed results.
+ 
+Exit the transaction & review the released posting in Material Master (T code MM03), Costing 2 tab which now shows the current period, year & value.
+ 
+The cost roll activity for a single material is now complete & confirmed.
+==================================================================================
+Process to cost roll a group of materials.
+If the user wishes to conduct & ‘post’ a cost roll for a group of materials or multi-level BoM including all ‘children’ the steps are similar to those described above but with the following variation.
+Within ‘T’ code CK11N ensure that the PC02 flag is removed (it may take a couple of attempts to finally remove!).
+ 
+Note the use of new finished goods material, P0614-2000T-9 which contains a multi- level BoM & in-house labour to manufacture. As can be seen below, the result of running T code CK11N provides the first level of the costed BoM. 
+1.	to expand the costed BoM, Click the ‘down arrow’ icon  
+2.	to show the labour content click the ‘book’ Icon  
+ 
+The result of opening up the full BoM & labour can be seen below.
+ 
+The ‘wiggly’ worm icon   identifies labour activity – the adjacent text provides a description of the activity, associated cost & labour in hours (may also be shown in minutes). 
+In this instance, the BoM shows a full complement of ‘green’ traffic lights but remember ‘green’ does not necessarily mean they are correct. See notes at the end of this guide which hopefully describe some possible pit-falls.
+If amber or red errors are seen, SAP provides assistance to resolve although messages are often very convoluted. To review the errors, double click on the delinquent ‘red’ traffic light material: in this instance, 0614-2192-8 has been used as an example, but does not actually contain an error. This will provide bespoke material information in the RH window & if errors are present, the following icon will be seen   in this location. 
+ 
+Double clicking on the   icon will reveal the error in more detail as seen below for an alternative material
+ 
+The subcontract reference can be seen in a costed BoM with a small truck or van icon  . See further example below.
+ 
+This indicates that SAP is waiting for a Sub-con PIR (costs)
+If a breakdown of material, labour & overheads are required then the following icon is useful.  
+ 
+Once the costs shown in the multi-level BoM have been confirmed as accurate, then CK24 should be used as described in the steps for a single material recognising that the full, multi-level product BoM should be copied into the ‘price update’ screen.
+The full product BoM can be extracted from SAP using T code ‘ZSCM_BOMECM’ – individuals may not have access to this transaction but the typical steps to generate are seen below for material P0614-2000T-9.
+Entering T code ‘ZSCM_BOMECM’ into the SAP dialogue box reveals the following – note the populated fields including suppress leading zeros. 
+Click the Execute Icon   to reveal the full BoM – snapshot shown below.
+ 
+Use ‘Control Y’ & ‘Control C’ to select all of the materials in the ‘Component’ column. These can then be posted into the CK24 screen.
+The different steps are as follows:-
+ 
+Click on the mass input of materials icon   to reveal the following screen. 
+
+ 
+Select the ‘single values tab’ where the ‘Upload from clipboard’ icon    should be used. Note:- It is best not to use the ‘Control V’ option as this may not paste the entire BoM.
+The result will be as follows – note that the  ‘Select single values’ tab now shows the quantity of pasted items as 400.
+ 
+Click the execute icon to finally copy the values.
+The steps previously defined for CK24 ‘Mark’ & ‘Release’ may now be followed. 
+
+
+Note that the results shown below no longer indicate ‘1 of 1 materials…..’ but in this instance 294 materials have been successfully updated. The difference between 400 pasted items & 294 ‘successes’ are attributed to duplicate materials in the multi-level BoM or materials already posted in this period.
+ 
+
+
+
+
+Items to consider when setting a standard cost 
+
+Requests to set a standard are likely to result from:-
+a.	 Material extensions to multiple sites completed by GDG. The requests are currently via an e-mail (group or individual)
+b.	Site controllers advising that the current standards are completely in error eg material currently valued at $0.01 now cost rolled & posted at $1115.14
+c.	New products, spares or service materials loaded to SAP
+d.	Annual group cost roll.
+Consideration should be given to:-
+1.	Is the Material Type correctly set – if not, then STO uplifts will be incorrect.
+2.	Is the source of supply correctly set in the receiving plants material master record?
+3.	Is the cost correctly ‘posted’ in the plant identified as the source of supply, has it been formally cost rolled or just manually posted – manually posted costs are unacceptable.
+4.	Check that the costs posted costs are correct, maybe review PIR’s, MB51 for recent receipts
+5.	Check the costing lot size – if greater than 1, this may require further review to set a 1 off cost in the receiving plant
+6.	Check the Price Unit – if greater than 1, this may require further review to set a 1 off cost in the receiving plant
+7.	Have values been correctly set for Planned Price 2 & 3 in the receiving plants material master data. This will be based on the material type, plant to plant uplift & currency conversion. 
+8.	Currency conversion to be completed using the budget rate.
+9.	If there is any doubt about the costs in the supplying plant then conduct a CK11N review. If appropriate, ask the site financial controller to post a new value.
+10.	Is there stock in either plant – be aware that setting a new standard will result in a re-valuation which may be unacceptable.
+11.	Consider when it is appropriate to set a new standard, for example, if a material valuation was generated in period 1 but a massive change in the build programme has resulted in dramatically different costs. This may result in a massive PPV
+12.	Costs in the same entity for the same material should be identical eg GB00 = GB30 & GB45, US00 = US45, US65 & US80
+13.	An identical STO material in the same entity should indicate the same source of supply using the Special Procurement Key in MM, MRP2. Note, the SPK code will, by necessity, be different.
+14.	Problems may be experience around month end when attempting to post standards: either complete before closure or shortly after the new period is opened.
+
+
+
+
+5.0		RESPONSIBILITIES
+
+•	All Cost-rolls for extensions of materials must be carried out by the Data Governance team
+•	All Changes to existing standard prices for US materials is carried out and signed off by senior Finance & Operations  representatives.
+•	All changes to existing standard prices for materials for the remaining plants are carried out by and signed off by the local Finance Operations.
+
+6.0	DATA GOVERNANCE PROCESS
+THE GOVERNANCE PROCESS NEEDS TO BE CONFIRMED WITH THE FINANCE TEAM – IF A STANDARD PRICE CHANGES IN ONE MANUFACTURING SITE, HOW IS THIS CHANGE EXTENDED TO THE OTHER SITES.
+•	Cost-roll is reviewed annually by the Finance team.
+•	Individual materials are cost-rolled whenever the material is extended to another plant or when a new material is created in the system.
+•	Monthly Audit reports are run by GDG to monitor all newly extended materials have been cost-rolled.
