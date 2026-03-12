@@ -174,3 +174,5 @@ docker-compose.override.yml
 *.tar.gz
 *.rar
 .history/
+*.csv
+Main SAP Data.csv
