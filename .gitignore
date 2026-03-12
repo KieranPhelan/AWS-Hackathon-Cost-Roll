@@ -47,7 +47,6 @@ id_ecdsa*
 id_ed25519*
 
 # Database dumps and backups
-*.sql
 *.dump
 *.backup
 *.bak
