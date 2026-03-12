@@ -239,10 +239,10 @@ if __name__ == "__main__":
 
         # """
 
-        pure_f = st.radio(
-            "Pure F", ["Yes", "No"], index=None, horizontal=True)
+        sto = st.radio(
+            "Is it a stock transport?", ["Yes", "No"], index=None, horizontal=True)
 
-        if pure_f == "Yes":
+        if sto == "Yes":
             # Send email for PIR if not available
             """
             If PIR not available
@@ -252,7 +252,7 @@ if __name__ == "__main__":
                 ...
             """
             pass
-        elif pure_f == "No":
+        elif sto == "No":
             sto = st.radio(
                 "STO", ["Yes", "No"], index=None, horizontal=True)
 
