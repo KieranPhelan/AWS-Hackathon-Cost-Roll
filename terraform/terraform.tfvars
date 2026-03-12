@@ -1,0 +1,9 @@
+aws_region           = "us-west-2"
+vpc_id               = "vpc-0448edb6c9e838955"
+subnet_ids           = ["subnet-08922c4f2fb9bb329", "subnet-0feb9d39db0d3e377"]
+allowed_cidr_blocks  = ["0.0.0.0/0"]
+db_instance_class    = "db.t3.micro"
+db_allocated_storage = 20
+db_name              = "costroll"
+db_username          = "daynyus"
+db_password          = "chris123"
