@@ -162,8 +162,6 @@ temp/
 .cache/
 
 # Test files
-.html
-*.html
 coverage/
 test-results/
 junit.xml

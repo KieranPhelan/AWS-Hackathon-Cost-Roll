@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Entry Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .form-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .progress {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+        
+        .result {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .result h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .result-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            font-weight: 600;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Entry Form</h1>
+        <p class="subtitle">Follow the workflow to complete your entry</p>
+        
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <form id="dataForm">
+            <!-- Section 1: Initial Entry -->
+            <div class="form-section active" id="section1">
+                <div class="form-group">
+                    <label for="formData">Form Data (A)</label>
+                    <input type="text" id="formData" required>
+                </div>
+                <button type="button" class="btn" onclick="goToSection2()">Next</button>
+            </div>
+            
+            <!-- Section 2: E or Phantom Check -->
+            <div class="form-section" id="section2">
+                <div class="form-group">
+                    <label>Is this a Phantom item? (B → E Path)</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="phantomYes" name="phantom" value="yes">
+                            <label for="phantomYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="phantomNo" name="phantom" value="no">
+                            <label for="phantomNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn-secondary btn" onclick="goToSection1()">Back</button>
+                <button type="button" class="btn" onclick="handlePhantom()">Next</button>
+            </div>
+            
+            <!-- Section 3: Spare Check (if Phantom = Yes) -->
+            <div class="form-section" id="section3">
+                <div class="form-group">
+                    <label>Is this a Spare item?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="spareYes" name="spare" value="yes">
+                            <label for="spareYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="spareNo" name="spare" value="no">
+                            <label for="spareNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn-secondary btn" onclick="goToSection2()">Back</button>
+                <button type="button" class="btn" onclick="handleSpare()">Next</button>
+            </div>
+            
+            <!-- Section 4: F Path - Pure F Check -->
+            <div class="form-section" id="section4">
+                <div class="form-group">
+                    <label>Is this Pure F? (A → C → F Path)</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="pureFYes" name="pureF" value="yes">
+                            <label for="pureFYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="pureFNo" name="pureF" value="no">
+                            <label for="pureFNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn-secondary btn" onclick="goToSection1()">Back</button>
+                <button type="button" class="btn" onclick="handlePureF()">Next</button>
+            </div>
+            
+            <!-- Section 5: STO Check (if Pure F = No) -->
+            <div class="form-section" id="section5">
+                <div class="form-group">
+                    <label>Is this STO (Stock Transfer Order)?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="stoYes" name="sto" value="yes">
+                            <label for="stoYes">Yes</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="stoNo" name="sto" value="no">
+                            <label for="stoNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn-secondary btn" onclick="goToSection4()">Back</button>
+                <button type="button" class="btn" onclick="handleSTO()">Submit</button>
+            </div>
+            
+            <!-- Result Section -->
+            <div class="form-section" id="resultSection">
+                <div class="result">
+                    <h3>Form Submission Result</h3>
+                    <div id="resultContent"></div>
+                </div>
+                <button type="button" class="btn" onclick="resetForm()">Start Over</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let currentSection = 1;
+        const totalSections = 5;
+        
+        function updateProgress() {
+            const progress = (currentSection / totalSections) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+        
+        function showSection(sectionNum) {
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('section' + sectionNum).classList.add('active');
+            currentSection = sectionNum;
+            updateProgress();
+        }
+        
+        function goToSection1() {
+            showSection(1);
+        }
+        
+        function goToSection2() {
+            const formData = document.getElementById('formData').value;
+            if (!formData) {
+                alert('Please enter form data');
+                return;
+            }
+            showSection(2);
+        }
+        
+        function handlePhantom() {
+            const phantom = document.querySelector('input[name="phantom"]:checked');
+            if (!phantom) {
+                alert('Please select an option');
+                return;
+            }
+            
+            if (phantom.value === 'yes') {
+                showSection(3);
+            } else {
+                showResult('End', 'Phantom = No, workflow ends here');
+            }
+        }
+        
+        function handleSpare() {
+            const spare = document.querySelector('input[name="spare"]:checked');
+            if (!spare) {
+                alert('Please select an option');
+                return;
+            }
+            
+            if (spare.value === 'yes') {
+                showResult('Routing Required', 'Phantom = Yes, Spare = Yes → Routing Required');
+            } else {
+                showResult('End', 'Phantom = Yes, Spare = No → End');
+            }
+        }
+        
+        function goToSection4() {
+            showSection(4);
+        }
+        
+        function handlePureF() {
+            const pureF = document.querySelector('input[name="pureF"]:checked');
+            if (!pureF) {
+                alert('Please select an option');
+                return;
+            }
+            
+            if (pureF.value === 'yes') {
+                showResult('PIR PP2/3', 'Pure F = Yes → PIR PP2/3');
+            } else {
+                showSection(5);
+            }
+        }
+        
+        function handleSTO() {
+            const sto = document.querySelector('input[name="sto"]:checked');
+            if (!sto) {
+                alert('Please select an option');
+                return;
+            }
+            
+            if (sto.value === 'yes') {
+                showResult('PP2&3 + Special Procurement Costing', 'STO = Yes → PP2&3 + Special Procurement Costing');
+            } else {
+                showResult('Subcon PIR & Subcon BOM', 'STO = No → Subcon PIR & Subcon BOM');
+            }
+        }
+        
+        function showResult(outcome, description) {
+            const formData = document.getElementById('formData').value;
+            const resultContent = `
+                <div class="result-item">
+                    <span class="result-label">Form Data:</span> ${formData}
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Outcome:</span> ${outcome}
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Path:</span> ${description}
+                </div>
+            `;
+            document.getElementById('resultContent').innerHTML = resultContent;
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('resultSection').classList.add('active');
+            document.getElementById('progressBar').style.width = '100%';
+        }
+        
+        function resetForm() {
+            document.getElementById('dataForm').reset();
+            currentSection = 1;
+            showSection(1);
+        }
+        
+        updateProgress();
+    </script>
+</body>
+</html>
